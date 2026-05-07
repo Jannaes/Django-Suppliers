@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Products and vendors</title>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+
+  
+</head>
+    <body>
+        <div class="container">
+            <center>
+
+                <div class="btn-group" role="group">
+                <a class="btn btn-warning btn-sm" href="/suppliers">Manage suppliers</a>
+                <a class="btn btn-success btn-sm" href="/products">Manage products</a>
+                <a class="btn btn-info btn-sm" href="http://careeria.fi">Recruit code professionals</a>
+                <a class="btn btn-primary btn-sm" href="/admin">Admin pages</a>
+                <a class="btn btn-danger btn-sm">Logout</a>
+            </div>
+
+                {% block content %}
+
+                {% endblock %}
+            </center>
+        </div>
+
+    </body>
+</html>
