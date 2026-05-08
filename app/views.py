@@ -26,6 +26,31 @@ def addproduct(request):
     return redirect(request.META['HTTP_REFERER'])
 
 
+ # Delete product view
+def confirmdeleteproduct(request, id):
+    product = Product.objects.get(id = id)
+    context = {'product': product}
+    return render (request,"confirmdelprod.html",context)
+
+
+def deleteproduct(request, id):
+    Product.objects.get(id = id).delete()
+    return redirect(productlistview)
+
+
+# Delete supplier view
+def confirmdeletesupplier(request, id):
+    supplier = Supplier.objects.get(id = id)
+    context = {'supplier': supplier}
+    return render (request,"confirmdelsuppl.html",context)
+
+
+def deletesupplier(request, id):
+    Supplier.objects.get(id = id).delete()
+    return redirect(supplierlistview)
+
+
+
 # Supplier views
 def supplierlistview(request):
     supplierlist = Supplier.objects.all()
