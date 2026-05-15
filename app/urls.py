@@ -17,22 +17,41 @@ Including another URLconf
 
 from django.urls import path
 
-from .views import landingview, productlistview, supplierlistview, addsupplier, addproduct, \
+from .views import edit_product_get, edit_product_post, edit_supplier_get, edit_supplier_post, \
+    landingview, login_action, loginview, logout_action, \
+    productlistview, products_filtered, search_suppliers, supplierlistview, addsupplier, addproduct, \
     confirmdeleteproduct, deleteproduct, confirmdeletesupplier, deletesupplier
 
 urlpatterns = [
+
+    # ------------Landing page after login-------------
     path('', landingview),
 
-     # Products URL
+
+    # --------Loginview and authentication method------------   
+    path('login/', loginview),
+    path('login-action/', login_action),
+    path('logout/', logout_action),
+
+
+    # ------------- Products URLs--------------
     path('products/', productlistview),
     path('add-product/', addproduct),
     path('confirm-delete-product/<int:id>/', confirmdeleteproduct),
     path('delete-product/<int:id>/', deleteproduct),
+    path('edit-product-get/<int:id>/', edit_product_get),
+    path('edit-product-post/<int:id>/', edit_product_post),
+    path('products-by-supplier/<int:id>/', products_filtered),
 
-     # Suppliers URL
+     # ------------- Suppliers URLs--------------
     path('suppliers/', supplierlistview),
+    path('search-suppliers/', search_suppliers),
     path('add-supplier/', addsupplier),
     path('confirm-delete-supplier/<int:id>/', confirmdeletesupplier),
     path('delete-supplier/<int:id>/', deletesupplier),
+    path('edit-supplier-get/<int:id>/', edit_supplier_get),
+    path('edit-supplier-post/<int:id>/', edit_supplier_post),
+
+
 
 ]
