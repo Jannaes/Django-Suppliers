@@ -11,6 +11,13 @@
 
 <a onclick="showaddform()" class="btn btn-primary">Add new product</a>
 
+    <form method="post" action="/search-products/">
+            {%csrf_token %}
+            <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+            <input type="submit" value="Search" class="btn btn-success btn-sm" name="">
+    </form>
+
 {% for p in products %}
 
 <div class="card" style="width: 50rem;">
@@ -44,31 +51,51 @@
 <script>
 
     let y = `
-    <h2 style="color: darkorange;">Please fill in form</h2>
-    
-    <div class="card" style="width: 20rem;">
-        <div class="card-body">
-            <form method="post" action="/add-product/">
-                
-                {%csrf_token %}
-                <input class="card-text" class="card-text" type="text" placeholder="product name" name="productname">
-                <input class="card-text" type="text" placeholder="package size" name="packagesize">
-                <input class="card-text" type="number" step="0.01" placeholder="unitprice" name="unitprice">
-                <input class="card-text" type="text" placeholder="units in stock or 0" name="unitsinstock">
-                <br />
-                <label for="supplier">Supplier</label>
-                <select id="supplier" name="supplier">
-                {% for s in suppliers %}
-                  <option value="{{s.id}}">{{s.companyname}}</option>
-                  {% endfor %}
-                </select>
+    <h2 style="color: lightblue;">Please fill in form</h2>
 
-                <br/>
-                <input type="submit" value="Confirm" class="btn btn-success btn-sm" name="">
-                <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+
+    <div class="card form-card">
+
+        <div class="card-header">
+            <h4>Add Product</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post" action="/add-product/">
+
+                {% csrf_token %}
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Product name</label><input type="text" name="productname">
+                    </div>
+                    <div class="form-group"> <label>Package size</label><input type="text" name="packagesize">
+                    </div>
+                    <div class="form-group"><label>Unit price</label><input type="number" step="0.01" name="unitprice">
+                    </div>
+                    <div class="form-group"><label>Units in stock</label><input type="number" name="unitsinstock">
+                    </div>
+                    <div class="form-group full-width"> <label>Supplier</label>
+                        <select name="supplier">
+                            {% for supplier in suppliers %}
+                                <option value="{{ supplier.id }}">
+                                    {{ supplier.companyname }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <input type="submit" value="Save" class="btn btn-success">
+                    <input type="submit" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+                </div>
             </form>
         </div>
-    </div>`
+    </div>
+
+    `
 
     function showaddform() {
         document.getElementById("add-div").innerHTML = y

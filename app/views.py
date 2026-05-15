@@ -78,7 +78,6 @@ def deleteproduct(request, id):
     return redirect(productlistview)
 
 
- # ----------------Edit product-----------------
 # ----------------Edit product-----------------
 def edit_product_get(request, id):
     product = Product.objects.get(id = id)
@@ -100,6 +99,12 @@ def products_filtered(request, id):
     filteredproducts = productlist.filter(supplier = id)
     context = {'products': filteredproducts}
     return render (request,"productlist.html",context)
+
+def search_products(request):
+    search = request.POST.get('search')
+    filtered = Product.objects.filter(productname__icontains=search)
+    context = {'products': filtered}
+    return render(request, 'productlist.html', context)
 
 
 # ----------------Supplier views-----------------
