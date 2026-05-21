@@ -1,10 +1,12 @@
 import os
 from pathlib import Path
-import dj_database_url 
+import dj_database_url # lisätty
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
@@ -12,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-6_!=%$s^xe%ue&b0hwx*t6mi*9sj#h(b2yj_w#j+*gv)wnefww'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run with debug turned on in production!  Eli vaihda DEBUG = False ennen tuotantoon siirtymistä
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -74,25 +76,11 @@ DATABASES = {
 '''
 
 
-# Lokaali PostgreSQL-tietokanta
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'suppliers_db',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Tilliainen',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-
-
 # Renderin PostgreSQL-tietokanta
 DATABASES = {
     'default': dj_database_url.config(
-        # Replace this value with your local database's connection string.
-        default='postgresql://postgres:Tilliainen@localhost:5432/suppliers_db',
-        conn_max_age=600
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600 
     )
 }
 

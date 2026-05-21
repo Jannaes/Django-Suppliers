@@ -108,6 +108,7 @@ def search_products(request):
 
 
 # ----------------Supplier views-----------------
+@login_required(login_url='/login/')
 def supplierlistview(request):
     supplierlist = Supplier.objects.all()
     context = {'suppliers': supplierlist}
@@ -124,6 +125,8 @@ def search_suppliers(request):
 
  # -------------Add supplier----------------
 def addsupplier(request):
+    if not request.user.is_authenticated:
+        return render(request, 'loginpage.html')
     a = request.POST.get('companyname')
     b = request.POST.get('contactname')
     c = request.POST.get('address')
@@ -150,6 +153,7 @@ def edit_supplier_get(request, id):
     supplier = Supplier.objects.get(id = id)
     context = {'supplier': supplier}
     return render(request, 'edit_supplier.html', context)
+
 
 # ----------------Edit supplier save-----------------
 def edit_supplier_post(request, id):
