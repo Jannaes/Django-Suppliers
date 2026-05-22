@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<div class="card" style="width: 25rem;">
+    <div class="card-header">
+
+        <h5>Editing {{order.orderid}} ordered by {{order.customer.companyname}}</h5>
+
+        <div class="card-body">
+            <form method="post" action="/edit-order-post/{{order.id}}/">
+                {%csrf_token %} <!--Django vaatii CSRF tokenin POST-pyynnöissä, muuten pyyntö ei onnistu -->
+
+                <div class="form-group">
+                    <label>Order Date</label>
+                        <input type="date" name="orderdate" value="{{ order.orderdate|date:'Y-m-d' }}" readonly> 
+                </div>
+
+                <div class="form-group">
+                    <label>Required Date</label>
+                    <input type="date" name="requireddate" value="{{ order.requireddate | date:'Y-m-d' }}" >
+                </div>
+
+                <div class="form-group">
+                    <label>Product</label>
+                    <select name="product">
+                        {% for product in products %}
+                            <option value="{{ product.id }}" {% if product.id == order.product.id %}selected{% endif %}>
+                                {{ product.productname }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Supplier</label>
+                    <select name="supplier">
+                            {% for supplier in suppliers %}
+                                <option value="{{ supplier.id }}" {% if supplier.id == order.supplier.id %}selected{% endif %}>
+                                    {{ supplier.companyname }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                <input type="submit" value="Update" class="btn btn-success btn-sm">
+                <input type="button" onclick="window.location.href='/orders'" id="hide-btn"
+                    class="btn btn-secondary btn-sm" value="Cancel">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

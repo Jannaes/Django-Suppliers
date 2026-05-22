@@ -1,0 +1,128 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+<br />
+<!-- Lisäyslomakkeen paikka -->
+<div id="add-div"></div>
+<br />
+
+<h1>Orders</h1>
+
+<a onclick="showaddform()" class="btn btn-primary">Add new order</a>
+
+<form method="post" action="/search-orders/">
+    {%csrf_token %}
+    <input class="card-text" class="card-text" type="text" placeholder="search" name="search">
+
+    <input type="submit" value="Search" class="btn btn-success btn-sm" name="">
+</form>
+
+{% for o in orders %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <h3 class="card-title">Order Id: {{o.id}} </h3>
+        <h5 class="card-text">Customer: {{o.customer.companyname}}</h5>
+        <h5 class="card-text">CustomerId: {{o.customer.id}}</h5>
+        <h5 class="card-text">Product: {{o.product.productname}}</h5>
+        <p class="card-text">OrderDate: {{o.orderdate}}</p>
+        <p class="card-text">RequiredDate: {{o.requireddate}}</p>
+        <p class="card-text">Supplier: {{o.supplier.companyname}}</p>
+
+        <a href="/edit-order-get/{{o.id}}/" class="btn btn-primary">Edit</a>
+
+        <a href="/confirm-delete-order/{{o.id}}/" class="btn btn-danger">Delete</a>
+
+        <a href="/orders-by-customer/{{o.customer.id}}/" class="btn btn-secondary">{{o.customer.companyname}}'s all
+            Orders</a>
+
+    </div>
+</div>
+
+
+
+{% empty %}
+
+<div class="card" style="width: 50rem;">
+    <div class="card-body">
+        <p class="card-text">No orders found in the database </p>
+    </div>
+</div>
+
+{%endfor%}
+
+
+<script>
+
+    let y = `
+    <h2 style="color: lightblue;">Please fill in form</h2>
+
+
+    <div class="card form-card">
+        <div class="card-header">
+            <h4>Add Order</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="post" action="/add-order/">
+
+                {% csrf_token %}
+
+                    <div class="form-group">
+                        <label>Customer name</label>
+                        <select name="customer">
+                            {% for customer in customers %}
+                                <option value="{{ customer.id }}">
+                                    {{ customer.companyname }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product</label>
+                        <select name="product">
+                            {% for product in products %}
+                                    <option value="{{ product.id }}">
+                                        {{ product.productname }}
+                                    </option>
+                                {% endfor %}
+                        </select>
+                    </div>
+                        
+                    <div class="form-group"> <label>Order date</label><input type="date" name="orderdate">
+                    </div>
+                    <div class="form-group"><label>Required date</label><input type="date" name="requireddate">
+                    </div>
+                    <div class="form-group"> <label>Supplier</label>
+                        <select name="supplier">
+                            {% for supplier in suppliers %}
+                                <option value="{{ supplier.id }}">
+                                    {{ supplier.companyname }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                <div>
+                    <input type="submit" value="Save" class="btn btn-success">
+                    <input type="button" id="hide-btn" class="btn btn-secondary btn-sm" onclick="hideaddform()" value="Cancel" name="">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    `
+
+    function showaddform() {
+        document.getElementById("add-div").innerHTML = y
+    }
+
+    function hideaddform() {
+        document.getElementById("add-div").innerHTML = ""
+    }
+
+</script>
+
+{% endblock %}

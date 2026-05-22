@@ -15,7 +15,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-6_!=%$s^xe%ue&b0hwx*t6mi*9sj#h(b2yj_w#j+*gv)wnefww'
 
 # SECURITY WARNING: don't run with debug turned on in production!  Eli vaihda DEBUG = False ennen tuotantoon siirtymistä
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 

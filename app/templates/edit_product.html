@@ -13,11 +13,11 @@
                 {%csrf_token %} <!--Django vaatii CSRF tokenin POST-pyynnöissä, muuten pyyntö ei onnistu -->
                 <div class="form-group">
                     <label>price</label>
-                    <input type="number" step="0.01" name="unitprice" value={{product.unitprice}}>
+                    <input type="number" step="0.01" name="unitprice" value="{{product.unitprice}}">
                 </div>
                 <div class="form-group">
                     <label>stock</label>
-                    <input type="number" name="unitsinstock" value={{product.unitsinstock}}>
+                    <input type="number" name="unitsinstock" value="{{product.unitsinstock}}">
                 </div>
 
                 <input type="submit" value="Update" class="btn btn-success btn-sm">

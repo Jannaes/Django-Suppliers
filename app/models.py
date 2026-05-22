@@ -22,3 +22,20 @@ class Product(models.Model):
      # mutta se ei ole välttämätöntä alussa
     def __str__(self):
         return f"{self.productname} produced by {self.supplier.companyname}"
+    
+class Customer(models.Model):
+    companyname = models.CharField(max_length=50, default="asiakas")
+    contactname = models.CharField(max_length = 50, default="asiakas")
+    address = models.CharField(max_length = 100, default="asiakas")
+    phone = models.CharField(max_length = 20, default="asiakas")
+    email = models.CharField(max_length = 50, default="asiakas")
+    country = models.CharField(max_length = 50, default="asiakas")
+    def __str__(self):
+        return f"{self.companyname} from {self.country}"
+    
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    orderdate = models.DateField()
+    requireddate = models.DateField()
