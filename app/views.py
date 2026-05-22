@@ -303,7 +303,7 @@ def deleteorder(request, id):
 # -------------Filter orders by customer--------------
 def orders_by_customer(request, customer_id):
     filteredorders = Order.objects.filter(customer=customer_id)
-    context = {'orders': filteredorders}
+    context = {'orders': filteredorders, 'customers': Customer.objects.all(), 'suppliers': Supplier.objects.all(), 'products': Product.objects.all()}
     return render(request, "orderlist.html", context)
 
 
