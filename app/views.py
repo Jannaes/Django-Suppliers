@@ -256,16 +256,17 @@ def search_orders(request):
 
 # -------------Add order----------------
 def addorder(request):
-    if not request.user.is_authenticated:
-        return render(request, 'loginpage.html')
-    a = request.POST.get('customer')
-    b = request.POST.get('product')
-    c = request.POST.get('orderdate')
-    d = request.POST.get('requireddate')
-    e = request.POST.get('supplier')
-    Order(customer = Customer.objects.get(id = a), product = Product.objects.get(id = b), orderdate = c, requireddate = d, 
-          supplier = Supplier.objects.get(id = e)).save()
-    return redirect(request.META['HTTP_REFERER'])
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return render(request, 'loginpage.html')
+        a = request.POST.get('customer')
+        b = request.POST.get('product')
+        c = request.POST.get('orderdate')
+        d = request.POST.get('requireddate')
+        e = request.POST.get('supplier')
+        Order(customer = Customer.objects.get(id = a), product = Product.objects.get(id = b), orderdate = c, requireddate = d, 
+            supplier = Supplier.objects.get(id = e)).save()
+        return redirect(request.META['HTTP_REFERER'])
 
 
 #-------------Edit order-----------------
