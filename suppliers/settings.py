@@ -11,13 +11,18 @@ load_dotenv()
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6_!=%$s^xe%ue&b0hwx*t6mi*9sj#h(b2yj_w#j+*gv)wnefww'
+
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!  Eli vaihda DEBUG = False ennen tuotantoon siirtymistä
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'suppliers-9732.onrender.com',
+]
 
 
 # Application definition
